@@ -64,26 +64,46 @@
               "translate(" + margin.left + "," + margin.top + ")");
 
     //Read the data
-    d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_connectedscatter.csv", function(data) {
+    d3.csv("https://raw.githubusercontent.com/aalwan09/Dashboard-396/master/TSLA.csv", function(data) {
+    // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_connectedscatter.csv", function(data) {
 
-        // List of groups (here I have one group per column)
-        var allGroup = ["valueA", "valueB", "valueC"]
+    //   var allGroup = ["valueA", "valueB", "valueC"]
+
+    //   // Reformat the data: we need an array of arrays of {x, y} tuples
+    //   var dataReady = allGroup.map( function(colName) { // .map allows to do something for each element of the list
+    //     return {
+    //       name: colName,
+    //       values: data.map(function(d) {
+    //         return {time: d.time, value: +d[colName]};
+    //       })
+    //     };
+    //   });
+    //   // I strongly advise to have a look to dataReady with
+    //   console.log(dataReady)
+
+    // // A color scale: one color for each group
+    // var myColor = d3.scaleOrdinal()
+    //   .domain(allGroup)
+    //   .range(d3.schemeSet2);
+
+        // List of column titles
+        var allColumns = ["Date", "Open", "High", "Low", "Close", "Adj Close", "Volume"]
 
         // Reformat the data: we need an array of arrays of {x, y} tuples
-        var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+        var dataReady = allColumns.map( function(colName) { // .map allows to do something for each element of the list
           return {
-            name: grpName,
+            name: colName,
             values: data.map(function(d) {
-              return {time: d.time, value: +d[grpName]};
+              return {date: d.Date, value: +d[colName]};
             })
           };
         });
         // I strongly advise to have a look to dataReady with
-        // console.log(dataReady)
+        console.log(dataReady)
 
         // A color scale: one color for each group
         var myColor = d3.scaleOrdinal()
-          .domain(allGroup)
+          .domain(allColumns)
           .range(d3.schemeSet2);
 
         // Add X axis --> it is a date format
